@@ -13,24 +13,41 @@ A sample config file:
 "here is parameters #2"
 
 comments
+
 comments
+
 comments~~~
 
 @"this is target #1"
+
 @"this is target #2" @ "this can be target #3"
 
+
 you can even add comments here.
+
 "this is a source", "this is second source"
+
 "there is a example of add /" in the quotation mark"
+
+@"this is another target"
+
+"another source"
 
 
 Test result:
 -------------------------------------------------
 Parameter Set = [here is parameters #1, here is parameters #2]
 
-Map Content = 
+Map Content =
+ 
+[another source]
 
-[this is second source, this is a source, there is a example of add " in the quotation mark]:[this is target #1, this can be target #3, this is target #2]
+  -> [this is another target]
+  
+[this is second source, this is a source, there is a example of add " in the quotation mark]
+
+  -> [this is target #1, this can be target #3, this is target #2]
+  
 
 true
 
