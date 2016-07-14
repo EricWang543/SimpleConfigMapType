@@ -19,6 +19,14 @@ public class SimpleConfigMapType {
         return true;
     }
     
+    public boolean addParameter(String _p){
+        if (_p != null){
+            parameterSet.add(_p);
+            return true;
+        }
+        return false;
+    }
+    
     public boolean deletePairByFirst(String _elementOfFirst){
         HashSet<String> firstSet = getFirstSet(_elementOfFirst);
         if (firstSet != null)
@@ -69,5 +77,14 @@ public class SimpleConfigMapType {
     
     public int getParameterSetSize(){
         return parameterSet.size();
+    }
+
+    public String toString(){
+        String result = "";
+        result = result +  "Parameter Set = " + parameterSet.toString() + "\n";
+        result = result + "Map Content = \n";
+        for (Map.Entry<HashSet<String>, HashSet<String>> entry : mapContent.entrySet())
+            result = result + entry.getKey().toString() + ":" + entry.getValue().toString() + "\n";
+        return result;
     }
 }
