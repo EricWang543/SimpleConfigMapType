@@ -14,7 +14,8 @@ public class Test {
         SimpleConfigMapTypeParser parser = new SimpleConfigMapTypeParser(new File("test.txt"));
         SimpleConfigMapType map = parser.constructConfigMap();
         System.out.println(map);
-        System.out.println(map.havingString("pointing to"));
+        System.out.println(map.havingString("this is second source"));
+        System.out.println(map.havingString("this won't be in the set"));
     }
 
 }
