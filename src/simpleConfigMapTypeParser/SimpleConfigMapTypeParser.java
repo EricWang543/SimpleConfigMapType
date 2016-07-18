@@ -9,6 +9,7 @@ import javax.management.RuntimeErrorException;
 import simpleConfigMapType.SimpleConfigMapType;
 
 public class SimpleConfigMapTypeParser {
+    
     //number indicates the priority
     public static final int MEET_END_UNEXPECTLY = 3;
     public static final int MEET_END = 2;
@@ -23,7 +24,7 @@ public class SimpleConfigMapTypeParser {
     //start search at catchContentPosition, stop at the index right after next " met
     private String catchNextContent(){
         assert catchContentPosition <= content.length();
-        String result = "";
+        StringBuffer result = new StringBuffer();
         catchContentStatus = ALL_IS_WELL;
             
         //point to next "
@@ -44,7 +45,7 @@ public class SimpleConfigMapTypeParser {
             if (content.charAt(catchContentPosition) == '/'){
                 if (catchContentPosition != content.length() - 1){
                     ++ catchContentPosition;
-                    result += content.charAt(catchContentPosition);
+                    result.append(content.charAt(catchContentPosition));
                     ++catchContentPosition;
                     continue;
                 }
@@ -55,7 +56,7 @@ public class SimpleConfigMapTypeParser {
             } 
             //else just append
             else {
-                result += content.charAt(catchContentPosition);
+                result.append(content.charAt(catchContentPosition));
                 ++catchContentPosition;
                 continue;
             }
@@ -67,7 +68,7 @@ public class SimpleConfigMapTypeParser {
         
         //point to char next to "
         ++catchContentPosition;
-        return result;
+        return result.toString();
     }
 
     public SimpleConfigMapTypeParser(String _content){
@@ -75,7 +76,6 @@ public class SimpleConfigMapTypeParser {
         content = _content;
     }
     
-    @SuppressWarnings("resource")
     public SimpleConfigMapTypeParser(File _inputFile) throws FileNotFoundException{
         assert _inputFile != null;
         content = "";
@@ -86,6 +86,7 @@ public class SimpleConfigMapTypeParser {
             newLine = sc.nextLine();
             content = content + newLine + "/n";
         }
+        sc.close();
     }
     
     public SimpleConfigMapType constructConfigMap(){
@@ -105,6 +106,9 @@ public class SimpleConfigMapTypeParser {
                 throw new RuntimeErrorException(null);
             case ALL_IS_WELL:
                 result.addParameter(nextItem);
+                break;
+            default:
+                throw new RuntimeErrorException(null);          //should never be here!
             }
         }
         while (catchContentStatus != MEET_AT);
@@ -129,6 +133,8 @@ public class SimpleConfigMapTypeParser {
                 throw new RuntimeErrorException(null);
             case ALL_IS_WELL:
                 break;
+            default:
+                throw new RuntimeErrorException(null);          //should never be here!
             }
             
             //continue to catch first_set
@@ -148,6 +154,8 @@ public class SimpleConfigMapTypeParser {
             case ALL_IS_WELL:
                 assert catchContentStatus != ALL_IS_WELL;       //should never be here
                 throw new RuntimeErrorException(null);
+            default:
+                throw new RuntimeErrorException(null);          //should never be here!
             }
         }
 
