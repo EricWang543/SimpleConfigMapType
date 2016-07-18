@@ -84,7 +84,7 @@ public class SimpleConfigMapTypeParser {
         String newLine = "";
         while (sc.hasNextLine()){
             newLine = sc.nextLine();
-            content = content + newLine + "/n";
+            content = content + newLine + "\n";
         }
         sc.close();
     }
